@@ -3,9 +3,9 @@ import { ConnectedRouter } from "connected-react-router";
 import { Switch, Route } from "react-router-dom";
 import history from "./helpers/history";
 
-import Login from "./components/login";
-import Home from "./components/home";
-import Error from "./components/Error";
+import Login from "./containers/login";
+import Home from "./containers/home";
+import Error from "./containers/Error";
 
 function App() {
   return (
