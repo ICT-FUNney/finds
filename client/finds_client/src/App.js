@@ -6,6 +6,7 @@ import history from "./helpers/history";
 import Login from "./components/login";
 import Home from "./components/home";
 import Error from "./components/Error";
+import DocumentDetailPage from "./components/DocumentDetailPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/" component={Home} />
+        <Route path="/detail" component={DocumentDetailPage}/>
         <Route path="/" component={Error} />
       </Switch>
     </ConnectedRouter>
