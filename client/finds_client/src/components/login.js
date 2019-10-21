@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import '../styles/login.css';
 import {
     withStyles,
@@ -82,11 +83,15 @@ const Login = props => {
                     },
                 }}
             />
-            <ColorButton variant="contained" color="primary" className={classes.margin5}>
+            <ColorButton
+                variant="contained"
+                color="primary"
+                className={classes.margin5}
+            >
                 LOGIN
             </ColorButton>
             <a className="buttonUnderText">パスワードを忘れた場合</a>
         </div >
     )
 }
-export default Login;
+export default withRouter(Login)
