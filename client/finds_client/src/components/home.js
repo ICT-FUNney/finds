@@ -1,9 +1,11 @@
-import React from "react";
+import React from 'react';
+import UpAppBar from './UpAppBar';
+
 
 const Home=props=>{
     return (
         <div>
-            Home
+            <UpAppBar/>
         </div>
     )
 }
