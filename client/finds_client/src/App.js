@@ -4,9 +4,10 @@ import { Switch, Route } from "react-router-dom";
 import history from "./helpers/history";
 
 import Login from "./components/login";
-import MyPage from "./components/myPage";
 import Home from "./components/home";
 import Error from "./components/Error";
+import DocumentDetailPage from "./components/DocumentDetailPage";
+import MyPage from "./components/myPage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/home" component={Home} />
+        <Route path="/detail" component={DocumentDetailPage} />
         <Route exact path="/myPage" component={MyPage} />
         <Route path="/" component={Error} />
       </Switch>
