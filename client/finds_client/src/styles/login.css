@@ -1,0 +1,10 @@
+.inner {
+  text-align: center;
+  width: 20%;
+  margin: 5% auto;
+}
+
+.buttonUnderText {
+  display: inline-block;
+  margin-top: 10%;
+}
