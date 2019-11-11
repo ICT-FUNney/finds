@@ -3,7 +3,7 @@ import UpAppBar from './UpAppBar';
 import MyDocumentList from './MyDocumentsList';
 
 
-const Home=props=>{
+const Home = props => {
     return (
         <div>
             <UpAppBar />
