@@ -17,7 +17,7 @@ function App() {
         <Route exact path="/home" component={Home} />
         <Route path="/detail" component={DocumentDetailPage} />
         <Route exact path="/myPage" component={MyPage} />
-        <Route path="/" component={Error} />
+        <Route path="/" component={Login} />
       </Switch>
     </ConnectedRouter>
   );
