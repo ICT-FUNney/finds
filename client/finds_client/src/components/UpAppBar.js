@@ -17,10 +17,8 @@ const styles = theme => ({
     },
     searchIcon: {
       position: "absolute",
-      left: "87.99%",
-      right: "3.53%",
-      top: "10%",
-      bottom: "10%",
+      left: "85%",
+      bottom: "0%",
       color:"#000000",
   },
     search: {
@@ -65,7 +63,7 @@ function UpAppBar(props) {
                 <Toolbar>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
-              <SearchIcon />
+                <SearchIcon/>
             </div>
             <InputBase
               placeholder="新しい勉強資料を探す"
