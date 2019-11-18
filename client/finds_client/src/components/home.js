@@ -1,12 +1,12 @@
 import React from 'react';
-import UpAppBar from './UpAppBar';
+import TopAppBar from './TopAppBar';
 import MyDocumentList from './MyDocumentsList';
 
 
 const Home = props => {
     return (
         <div>
-            <UpAppBar />
+            <TopAppBar />
             <MyDocumentList/>
         </div>
     )

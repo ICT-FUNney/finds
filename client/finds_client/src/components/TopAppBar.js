@@ -5,11 +5,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { IconButton } from '@material-ui/core';
-import { fade } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Description from '@material-ui/icons/Description';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
+import {push} from "connected-react-router";
+import {useDispatch} from "react-redux";
 
 const styles = theme => ({
     root: {
@@ -55,8 +56,16 @@ const styles = theme => ({
     },
 });
 
-function UpAppBar(props) {
-    const { classes, title, search } = props;
+
+
+function TopAppBar(props) {
+  const { classes, title, search } = props;
+  const dispatch = useDispatch();
+  const moveToMypage = () => {
+  return (
+    dispatch(push("/myPage"))
+  );
+}
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -81,7 +90,7 @@ function UpAppBar(props) {
             <IconButton className={classes.mypage}>
             <Description/>
             </IconButton>
-            <IconButton className={classes.mypage}>
+            <IconButton className={classes.mypage} onClick={moveToMypage}>
               <AccountCircle />
             </IconButton>
                 </Toolbar>
@@ -90,8 +99,8 @@ function UpAppBar(props) {
     );
 }
 
-UpAppBar.propTypes = {
+TopAppBar.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(UpAppBar);
+export default withStyles(styles)(TopAppBar);
