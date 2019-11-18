@@ -62,10 +62,11 @@ function TopAppBar(props) {
   const { classes, title, search } = props;
   const dispatch = useDispatch();
   const moveToMypage = () => {
-  return (
-    dispatch(push("/myPage"))
-  );
-}
+  return (dispatch(push("/myPage")));
+  }
+  const moveToHome = () => {
+    return (dispatch(push("/Home")));
+  }
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -87,7 +88,7 @@ function TopAppBar(props) {
             <Typography variant="title" color="inherit" className={classes.flex}>
               {title}
                     </Typography>
-            <IconButton className={classes.mypage}>
+            <IconButton className={classes.mypage}onClick={moveToHome}>
             <Description/>
             </IconButton>
             <IconButton className={classes.mypage} onClick={moveToMypage}>
