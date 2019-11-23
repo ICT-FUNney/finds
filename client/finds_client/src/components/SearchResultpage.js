@@ -35,13 +35,11 @@ const tileData = [
     cols: 2,
     featured: true,
   },
-
   {
     img: 'https://cdn.pixabay.com/photo/2014/12/27/15/31/camera-581126_1280.jpg',
     title: 'Camera',
     author: 'Image by Free-Photos on Pixabay',
   },
-
   {
     img: 'https://cdn.pixabay.com/photo/2017/05/13/12/40/fashion-2309519__480.jpg',
     title: 'Hats',
