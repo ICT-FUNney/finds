@@ -67,15 +67,19 @@ function TopAppBar(props) {
   const moveToHome = () => {
     return (dispatch(push("/Home")));
   }
+  const moveToResult = () => {
+    return (dispatch(push("/result")));
+  }
+
     return (
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
-                <SearchIcon/>
+               <SearchIcon onClick={moveToResult}/>
             </div>
-            <InputBase
+              <InputBase
               placeholder="新しい勉強資料を探す"
               fullWidth="100%"
               classes={{
@@ -83,6 +87,7 @@ function TopAppBar(props) {
                 input: classes.inputInput,
               }}
                 inputProps={{ 'aria-label': 'search' }}
+                onClick={moveToResult}
             />
             </div>
             <Typography variant="title" color="inherit" className={classes.flex}>
