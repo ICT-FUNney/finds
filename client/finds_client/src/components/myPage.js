@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { deepPurple } from '@material-ui/core/colors';
 import {push} from "connected-react-router";
 import {useDispatch} from "react-redux";
-
+import TopAppBar from './TopAppBar';
 const darkViolet = deepPurple['A700'];
 const brightViolet = deepPurple['100'];
 
@@ -47,6 +47,10 @@ const Login = props => {
         return (dispatch(push("/login")));
     }
     return (
+        <div>
+            <div>
+             < TopAppBar />
+            </div>
         <div className="inner">
             <ColorBox color="text.primary" borderRadius="20%" className="box">
                 <i class="material-icons large-size">account_circle</i>
@@ -65,7 +69,8 @@ const Login = props => {
             >
                 LOGOUT
             </ColorButton>
-        </div >
+            </div >
+            </div>
     )
 }
 export default withRouter(Login)

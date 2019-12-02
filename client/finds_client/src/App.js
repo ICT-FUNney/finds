@@ -8,9 +8,13 @@ import Home from "./components/home";
 import Error from "./components/Error";
 import DocumentDetailPage from "./components/DocumentDetailPage";
 import MyPage from "./components/myPage";
+import TopAppBar from './components/TopAppBar';
 
 function App() {
+  var url = window.location.href;
   return (
+    <div>
+
     <ConnectedRouter history={history}>
       <Switch>
         <Route exact path="/login" component={Login} />
@@ -21,6 +25,7 @@ function App() {
         <Route path="/" component={Login} />
       </Switch>
     </ConnectedRouter>
+    </div>
   );
 }
 
