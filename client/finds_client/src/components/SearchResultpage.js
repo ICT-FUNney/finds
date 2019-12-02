@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import {push} from "connected-react-router";
 import {useDispatch} from "react-redux";
+import TopAppBar from './TopAppBar';
 
 const styles = theme => ({
   root: {
@@ -78,6 +79,7 @@ const tileData = [
   }
   return (
     <div className={classes.root}>
+      < TopAppBar />
       <GridList cellHeight={180} className={classes.gridList}>
         <GridListTile key="Subheader" cols={4} style={{ height: 'auto' }} >
         </GridListTile>
