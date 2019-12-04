@@ -8,6 +8,7 @@ import Home from "./components/home";
 import Error from "./components/Error";
 import DocumentDetailPage from "./components/DocumentDetailPage";
 import MyPage from "./components/myPage";
+import DocumentShowPage from "./components/DocumentShowPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route exact path="/home" component={Home} />
         <Route path="/detail" component={DocumentDetailPage} />
         <Route exact path="/myPage" component={MyPage} />
+        <Route exact path="/show" component={DocumentShowPage}/>
         <Route path="/" component={Login} />
       </Switch>
     </ConnectedRouter>
