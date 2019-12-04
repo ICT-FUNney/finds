@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -11,6 +11,7 @@ import Input from '@material-ui/core/Input';
 import SearchIcon from '@material-ui/icons/Search';
 import {push} from "connected-react-router";
 import {useDispatch} from "react-redux";
+import {getSearchRequest} from "../actions/actionTypes"
 
 const styles = theme => ({
     root: {
@@ -61,6 +62,7 @@ const styles = theme => ({
 function TopAppBar(props) {
   const { classes, title, search } = props;
   const dispatch = useDispatch();
+  const [searchStr,setSearchStr]=useState('');
   const moveToMypage = () => {
   return (dispatch(push("/myPage")));
   }
@@ -68,7 +70,11 @@ function TopAppBar(props) {
     return (dispatch(push("/Home")));
   }
   const moveToResult = () => {
-    return (dispatch(push("/result")));
+    dispatch(getSearchRequest(searchStr));
+  }
+
+  const handleStr=(e)=>{
+    setSearchStr(e.target.value);
   }
 
     return (
@@ -76,11 +82,13 @@ function TopAppBar(props) {
             <AppBar position="static">
                 <Toolbar>
           <div className={classes.search}>
-            <div className={classes.searchIcon}>
-                <SearchIcon/>
+            <div className={classes.searchIcon} onClick={moveToResult}>
+                <SearchIcon />
             </div>
             <Input type='text'
             placeholder='新しい勉強資料を探す'
+            value={searchStr}
+            onChange={handleStr}
             onKeyPress={(e) => { if (e.which === 13) moveToResult() }}
             />
             </div>

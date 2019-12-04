@@ -22,7 +22,6 @@ function App() {
         <Route path="/detail" component={DocumentDetailPage} />
         <Route exact path="/result" component={Result}/>
         <Route exact path="/myPage" component={MyPage} />
-        <Route exact path="/show" component={DocumentShowPage}/>
         <Route path="/" component={Login} />
       </Switch>
     </ConnectedRouter>

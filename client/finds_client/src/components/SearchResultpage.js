@@ -8,7 +8,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import {push} from "connected-react-router";
-import {useDispatch} from "react-redux";
+import {useDispatch,useSelector} from "react-redux";
 import TopAppBar from './TopAppBar';
 
 const styles = theme => ({
@@ -28,52 +28,11 @@ const styles = theme => ({
     color: 'rgba(255, 255, 255, 0.54)',
   },
 });
-const tileData = [
-  {
-    img: 'https://i.imagesup.co/images2/0__05c7e898ac694e.jpg',
-    title: 'fun',
-    author: 'Image by Free-Photos on Pixabay',
-    cols: 2,
-    featured: true,
-  },
-  {
-    img: 'https://cdn.pixabay.com/photo/2014/12/27/15/31/camera-581126_1280.jpg',
-    title: 'Camera',
-    author: 'Image by Free-Photos on Pixabay',
-  },
-  {
-    img: 'https://cdn.pixabay.com/photo/2017/05/13/12/40/fashion-2309519__480.jpg',
-    title: 'Hats',
-    author: 'Hans',
-  },
-  {
-    img: 'https://cdn.pixabay.com/photo/2015/10/26/11/10/honey-1006972__480.jpg',
-    title: 'Honey',
-    author: 'Image by Free-Photos on Pixabay',
-  }
-];
 
-
-/**
- * The example data is structured as follows:
- *
- * import image from 'path/to/image.jpg';
- * [etc...]
- *
- * const tileData = [
- *   {
- *     img: image,
- *     title: 'Image',
- *     author: 'author',
- *   },
- *   {
- *     [etc...]
- *   },
- * ];
- */
- function SearchResultPage(props) {
-   const classes = props;
- const dispatch = useDispatch();
+function SearchResultPage(props) {
+  const classes = props;
+  const dispatch = useDispatch();
+  const {searchResult}=useSelector(state=>state.search);
   const moveToDocumentDetail = () => {
   return (dispatch(push("/detail")));
   }
@@ -83,14 +42,14 @@ const tileData = [
       <GridList cellHeight={180} className={classes.gridList}>
         <GridListTile key="Subheader" cols={4} style={{ height: 'auto' }} >
         </GridListTile>
-        {tileData.map(tile => (
-          <GridListTile key={tile.img}>
-            <img src={tile.img} alt={tile.title} onClick={moveToDocumentDetail}/>
+        {searchResult.map(item => (
+          <GridListTile key={item.documentId}>
+            <img src={item.thumbnail} alt={item.name} onClick={moveToDocumentDetail}/>
             <GridListTileBar
-              title={tile.title}
-              subtitle={<span>作成者: {tile.author}</span>}
+              title={item.name}
+              subtitle={<span>作成者: {item.author}</span>}
               actionIcon={
-                <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}onClick={moveToDocumentDetail}>
+                <IconButton aria-label={`info about ${item.name}`} className={classes.icon}onClick={moveToDocumentDetail}>
                   <InfoIcon />
                 </IconButton>
               }
