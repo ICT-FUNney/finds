@@ -7,7 +7,7 @@ import {Avatar} from "@material-ui/core";
 import { Switch, Route } from "react-router-dom";
 import {push} from "connected-react-router";
 import {useDispatch} from "react-redux";
-
+import TopAppBar from './TopAppBar';
 import logo from "../logo.svg";
 import arrow from "../arrow_right_alt-24px.svg";
 import Detail from "./Detail";
@@ -218,6 +218,7 @@ const DocumentDetailPage=({match})=>{
 
     return (
         <>
+             < TopAppBar />
             <Switch>
                 <Route exact path={`${match.url}`} render={()=>{
                     return (
@@ -225,7 +226,7 @@ const DocumentDetailPage=({match})=>{
                             <div style={{ textAlign: "center" }}>
                                 <img src={logo} alt="hoge" className={classes.image} />
                             </div>
-                            <Detail/>  
+                            <Detail/>
                             <Description description="線形代数学第1回講義ノートです"/>
                             <Comments comments={com}/>
                             <Footer  onClick={moveToPayment}/>

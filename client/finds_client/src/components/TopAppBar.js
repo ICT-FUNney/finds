@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { IconButton } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Description from '@material-ui/icons/Description';
-import InputBase from '@material-ui/core/InputBase';
+import Input from '@material-ui/core/Input';
 import SearchIcon from '@material-ui/icons/Search';
 import {push} from "connected-react-router";
 import {useDispatch} from "react-redux";
@@ -67,6 +67,10 @@ function TopAppBar(props) {
   const moveToHome = () => {
     return (dispatch(push("/Home")));
   }
+  const moveToResult = () => {
+    return (dispatch(push("/result")));
+  }
+
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -75,14 +79,9 @@ function TopAppBar(props) {
             <div className={classes.searchIcon}>
                 <SearchIcon/>
             </div>
-            <InputBase
-              placeholder="新しい勉強資料を探す"
-              fullWidth="100%"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-                inputProps={{ 'aria-label': 'search' }}
+            <Input type='text'
+            placeholder='新しい勉強資料を探す'
+            onKeyPress={(e) => { if (e.which === 13) moveToResult() }}
             />
             </div>
             <Typography variant="title" color="inherit" className={classes.flex}>

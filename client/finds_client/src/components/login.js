@@ -8,6 +8,8 @@ import {
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { deepPurple } from '@material-ui/core/colors';
+import {push} from "connected-react-router";
+import {useDispatch} from "react-redux";
 
 const darkViolet = deepPurple['A700'];
 
@@ -54,6 +56,10 @@ const ColorButton = withStyles(theme => ({
 
 const Login = props => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const moveToMyDocumentList = () => {
+        return (dispatch(push("/Home")));
+    }
     return (
         <div className="inner">
             <h1>finds</h1>
@@ -87,6 +93,7 @@ const Login = props => {
                 variant="contained"
                 color="primary"
                 className={classes.margin5}
+                onClick={moveToMyDocumentList}
             >
                 LOGIN
             </ColorButton>
