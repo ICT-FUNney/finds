@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { withRouter } from 'react-router';
 import '../styles/login.css';
 import {
@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import { deepPurple } from '@material-ui/core/colors';
 import {push} from "connected-react-router";
 import {useDispatch} from "react-redux";
+import {getLoginRequest} from "../actions/actionTypes"
 
 const darkViolet = deepPurple['A700'];
 
@@ -57,8 +58,11 @@ const ColorButton = withStyles(theme => ({
 const Login = props => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const [id,setId]=useState("");
+    const [password,setPassword]=useState("");
     const moveToMyDocumentList = () => {
-        return (dispatch(push("/Home")));
+        const info={id,password}
+        dispatch(getLoginRequest(info))
     }
     return (
         <div className="inner">
@@ -69,6 +73,7 @@ const Login = props => {
                 variant="outlined"
                 id="custom-css-outlined-input"
                 fullWidth
+                onChange={(e)=>setId(e.target.value)}
                 InputLabelProps={{
                     style: {
                     }
@@ -84,6 +89,7 @@ const Login = props => {
                 variant="outlined"
                 id="custom-css-outlined-input"
                 fullWidth
+                onChange={(e)=>setPassword(e.target.value)}
                 inputProps={{
                     style: {
                     },
