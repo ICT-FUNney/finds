@@ -9,6 +9,9 @@ export const moveDetailPage=(target)=>({
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
+export const SIGNUP_REQUEST ='SIGNUP_REQUEST';
+export const SIGNUP_SUCCESS ='SIGNUP_SUCCESS';
+export const SIGNUP_FAILED ='SIGNUP_FAILED';
 export const SEARCH_REQUEST ="SEARCH_REQUEST";
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
 export const SEARCH_FAILED = 'SEARCH_FAILED';
@@ -18,6 +21,16 @@ export const USERDOC_FAILED = 'USERDOC_FAILED';
 export const USERINFO_REQUEST = "USERINFO_REQUEST";
 export const USERINFO_SUCCESS = 'USERINFO_SUCCESS';
 export const USERINFO_FAILED = 'USERINFO_FAILED';
+
+export const getLoginRequest=(info)=>({
+    type:LOGIN_REQUEST,
+    payload:info
+})
+
+export const getSignupRequest=(info)=>({
+    type: SIGNUP_REQUEST,
+    payload:info
+})
 
 export const getSearchRequest=(word)=>({
         type:SEARCH_REQUEST,
@@ -33,6 +46,26 @@ export const getUserInfoRequest=(id)=>({
     type:USERINFO_REQUEST,
     payload:id
 });
+
+export const LoginSuccess=(res)=>({
+    type:LOGIN_SUCCESS,
+    payload:res
+})
+
+export const LoginFailed=(err)=>({
+    type:LOGIN_FAILED,
+    payload:err
+})
+
+export const SignupSuccess=(res)=>({
+    type:SIGNUP_SUCCESS,
+    payload:res
+})
+
+export const SignupFailed=(err)=>({
+    type:SIGNUP_FAILED,
+    payload:err
+})
 
 export const SearchSuccess=(res)=>({
     type:SEARCH_SUCCESS,
