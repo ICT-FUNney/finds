@@ -6,7 +6,7 @@ import {Avatar} from "@material-ui/core";
 
 import { Switch, Route } from "react-router-dom";
 import {push} from "connected-react-router";
-import {useDispatch} from "react-redux";
+import {useDispatch,useSelector} from "react-redux";
 import TopAppBar from './TopAppBar';
 import logo from "../logo.svg";
 import arrow from "../arrow_right_alt-24px.svg";
@@ -205,6 +205,7 @@ const PaymentFooter=()=>{
 const DocumentDetailPage=({match})=>{
     const classes = useStyles();
     const dispatch=useDispatch();
+    const {target}=useSelector(store=>store.selectDoc);
     const moveToPayment=()=>{
         return (
             dispatch(push("/detail/payment"))
@@ -218,17 +219,21 @@ const DocumentDetailPage=({match})=>{
 
     return (
         <>
-             < TopAppBar />
+            < TopAppBar />
             <Switch>
                 <Route exact path={`${match.url}`} render={()=>{
                     return (
                         <>
                             <div style={{ textAlign: "center" }}>
-                                <img src={logo} alt="hoge" className={classes.image} />
+                                <img src={target.thumbnail} alt="hoge" className={classes.image} />
                             </div>
-                            <Detail/>
-                            <Description description="線形代数学第1回講義ノートです"/>
-                            <Comments comments={com}/>
+                            <Detail name={target.name} creator={target.creator}
+                                creatorLevel={target.creatorLevel} creatorImg={target.creatorImg}
+                                likes={target.likes} reviews={target.reviews}
+                                dl={target.dl}
+                            />
+                            <Description description={target.description}/>
+                            <Comments comments={target.comments}/>
                             <Footer  onClick={moveToPayment}/>
                         </>
                     );
@@ -239,7 +244,12 @@ const DocumentDetailPage=({match})=>{
                             <div style={{ textAlign: "center" }}>
                                 <img src={logo} alt="hoge" className={classes.image} />
                             </div>
-                            <Detail userfuneny="100"/>
+                            <Detail userfuneny="100"
+                                name={target.name} creator={target.creator}
+                                creatorLevel={target.creatorLevel} creatorImg={target.creatorImg}
+                                likes={target.likes} reviews={target.reviews}
+                                dl={target.dl}
+                            />
                             <PaymentFooter/>
                             <Button
                                 variant="contained"
