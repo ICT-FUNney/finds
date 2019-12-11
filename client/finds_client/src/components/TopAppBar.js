@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,22 +9,22 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Description from '@material-ui/icons/Description';
 import Input from '@material-ui/core/Input';
 import SearchIcon from '@material-ui/icons/Search';
-import {push} from "connected-react-router";
-import {useDispatch} from "react-redux";
-import {getSearchRequest} from "../actions/actionTypes"
+import { push } from "connected-react-router";
+import { useDispatch } from "react-redux";
+import { getSearchRequest } from "../actions/actionTypes"
 
 const styles = theme => ({
-    root: {
-        flexGrow: 1,
-    },
-    searchIcon: {
-      position: "absolute",
-      left: "85%",
-      bottom: "0%",
-      color:"#000000",
+  root: {
+    flexGrow: 1,
   },
-    search: {
-      position: 'relative',
+  searchIcon: {
+    position: "absolute",
+    left: "85%",
+    bottom: "0%",
+    color: "#000000",
+  },
+  search: {
+    position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: "#FFFFFF",
     '&:hover': {
@@ -36,25 +36,25 @@ const styles = theme => ({
       width: 'auto',
     },
   },
-     inputRoot: {
+  inputRoot: {
     color: 'inherit',
   },
   inputInput: {
     color: '#000000',
-    flexGrow:1,
-        padding: theme.spacing(1, 1, 1, 1),
-        transition: theme.transitions.create('width'),
-        width: '100%',
-    },
+    flexGrow: 1,
+    padding: theme.spacing(1, 1, 1, 1),
+    transition: theme.transitions.create('width'),
+    width: '100%',
+  },
 
-    flex: {
-      flexGrow: 1,
-      color:"#FFFFFF",
-    },
+  flex: {
+    flexGrow: 1,
+    color: "#FFFFFF",
+  },
 
   mypage: {
-    color:"#FFFFFF",
-    },
+    color: "#FFFFFF",
+  },
 });
 
 
@@ -62,9 +62,9 @@ const styles = theme => ({
 function TopAppBar(props) {
   const { classes, title, search } = props;
   const dispatch = useDispatch();
-  const [searchStr,setSearchStr]=useState('');
+  const [searchStr, setSearchStr] = useState('');
   const moveToMypage = () => {
-  return (dispatch(push("/myPage")));
+    return (dispatch(push("/myPage")));
   }
   const moveToHome = () => {
     return (dispatch(push("/Home")));
@@ -73,42 +73,42 @@ function TopAppBar(props) {
     dispatch(getSearchRequest(searchStr));
   }
 
-  const handleStr=(e)=>{
+  const handleStr = (e) => {
     setSearchStr(e.target.value);
   }
 
-    return (
-        <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar>
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
           <div className={classes.search}>
             <div className={classes.searchIcon} onClick={moveToResult}>
-                <SearchIcon />
+              <SearchIcon />
             </div>
             <Input type='text'
-            placeholder='新しい勉強資料を探す'
-            value={searchStr}
-            onChange={handleStr}
-            onKeyPress={(e) => { if (e.which === 13) moveToResult() }}
+              placeholder='新しい勉強資料を探す'
+              value={searchStr}
+              onChange={handleStr}
+              onKeyPress={(e) => { if (e.which === 13) moveToResult() }}
             />
-            </div>
-            <Typography variant="title" color="inherit" className={classes.flex}>
-              {title}
-                    </Typography>
-            <IconButton className={classes.mypage}onClick={moveToHome}>
-            <Description/>
-            </IconButton>
-            <IconButton className={classes.mypage} onClick={moveToMypage}>
-              <AccountCircle />
-            </IconButton>
-                </Toolbar>
-            </AppBar>
-        </div>
-    );
+          </div>
+          <Typography variant="title" color="inherit" className={classes.flex}>
+            {title}
+          </Typography>
+          <IconButton className={classes.mypage} onClick={moveToHome}>
+            <Description />
+          </IconButton>
+          <IconButton className={classes.mypage} onClick={moveToMypage}>
+            <AccountCircle />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 }
 
 TopAppBar.propTypes = {
-    classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(TopAppBar);
