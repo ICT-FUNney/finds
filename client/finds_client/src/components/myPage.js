@@ -9,8 +9,8 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { deepPurple } from '@material-ui/core/colors';
-import {push} from "connected-react-router";
-import {useDispatch} from "react-redux";
+import { push } from "connected-react-router";
+import { useDispatch } from "react-redux";
 import TopAppBar from './TopAppBar';
 const darkViolet = deepPurple['A700'];
 const brightViolet = deepPurple['100'];
@@ -49,28 +49,28 @@ const Login = props => {
     return (
         <div>
             <div>
-             < TopAppBar />
+                < TopAppBar />
             </div>
-        <div className="inner">
-            <ColorBox color="text.primary" borderRadius="20%" className="box">
-                <i class="material-icons large-size">account_circle</i>
-                <Typography>b101XXXX</Typography>
-                <Typography>
-                    <Typography>㝮㝓り</Typography>
-                    <span className="funneyNumber">100</span>
-                    <span className="funnyUnit">FUNney</span>
-                </Typography>
-            </ColorBox>
-            <ColorButton
-                variant="contained"
-                color="primary"
-                className={classes.margin5}
-                onClick={moveToLogin}
-            >
-                LOGOUT
+            <div className="inner">
+                <ColorBox color="text.primary" borderRadius="10%" className="box">
+                    <i class="material-icons large-size">account_circle</i><br />
+                    <Typography className="text_inner">
+                        <span className="studentNumber">b101XXXX<br /></span>
+                        <span className="funneyRest">のこり<br /></span>
+                        <span className="funneyNumber">100</span>
+                        <span className="funneyUnit">FUNney</span>
+                    </Typography>
+                </ColorBox>
+                <ColorButton
+                    variant="contained"
+                    color="primary"
+                    className={classes.margin5}
+                    onClick={moveToLogin}
+                >
+                    LOGOUT
             </ColorButton>
             </div >
-            </div>
+        </div>
     )
 }
 export default withRouter(Login)
