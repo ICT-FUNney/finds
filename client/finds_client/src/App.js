@@ -8,23 +8,24 @@ import Home from "./components/home";
 import Error from "./components/Error";
 import DocumentDetailPage from "./components/DocumentDetailPage";
 import MyPage from "./components/myPage";
+import UploadPage from "./components/UploadPage";
 import TopAppBar from './components/TopAppBar';
 
 function App() {
   var url = window.location.href;
   return (
     <div>
-
-    <ConnectedRouter history={history}>
-      <Switch>
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/home" component={Home} />
-        <Route path="/detail" component={DocumentDetailPage} />
-        <Route exact path="/result" component={Result}/>
-        <Route exact path="/myPage" component={MyPage} />
-        <Route path="/" component={Login} />
-      </Switch>
-    </ConnectedRouter>
+      <ConnectedRouter history={history}>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/home" component={Home} />
+          <Route path="/detail" component={DocumentDetailPage} />
+          <Route exact path="/result" component={Result} />
+          <Route exact path="/myPage" component={MyPage} />
+          <Route exact path="/UploadPage" component={UploadPage} />
+          <Route path="/" component={Login} />
+        </Switch>
+      </ConnectedRouter>
     </div>
   );
 }
