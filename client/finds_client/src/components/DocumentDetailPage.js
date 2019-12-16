@@ -242,7 +242,7 @@ const DocumentDetailPage=({match})=>{
                     return (
                         <>
                             <div style={{ textAlign: "center" }}>
-                                <img src={logo} alt="hoge" className={classes.image} />
+                                <img src={target.thumbnail} alt="hoge" className={classes.image} />
                             </div>
                             <Detail userfuneny="100"
                                 name={target.name} creator={target.creator}
