@@ -10,6 +10,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import {push} from "connected-react-router";
 import {useDispatch,useSelector} from "react-redux";
 import TopAppBar from './TopAppBar';
+import {moveToDocumentDetail} from "../actions/actionTypes";
 
 const styles = theme => ({
   root: {
@@ -33,8 +34,9 @@ function SearchResultPage(props) {
   const classes = props;
   const dispatch = useDispatch();
   const {searchResult}=useSelector(state=>state.search);
-  const moveToDocumentDetail = () => {
-  return (dispatch(push("/detail")));
+  const moveToDocDetail = (target) => {
+    dispatch(moveToDocumentDetail(target))
+    dispatch(push("/detail"));
   }
   return (
     <div className={classes.root}>
@@ -43,13 +45,25 @@ function SearchResultPage(props) {
         <GridListTile key="Subheader" cols={4} style={{ height: 'auto' }} >
         </GridListTile>
         {searchResult.map(item => (
-          <GridListTile key={item.documentId}>
-            <img src={item.thumbnail} alt={item.name} onClick={moveToDocumentDetail}/>
+          <GridListTile key={item.documentId} onClick={()=>moveToDocDetail({
+            name:item.name,
+            creator:item.author,
+            creatorLevel: item.authorLevel,
+            creatorImg:"",
+            likes:item.likes,
+            reviews: item.review_number,
+            dl: item.downlaod_number,
+            description: item.description,
+            comments: item.reviews,
+            autherId: item.authorId,
+            thumbnail: item.thumbnail||""
+          })}>
+            <img src={item.thumbnail} alt={item.name} onClick={moveToDocDetail}/>
             <GridListTileBar
               title={item.name}
               subtitle={<span>作成者: {item.author}</span>}
               actionIcon={
-                <IconButton aria-label={`info about ${item.name}`} className={classes.icon}onClick={moveToDocumentDetail}>
+                <IconButton aria-label={`info about ${item.name}`} className={classes.icon} onClick={moveToDocDetail}>
                   <InfoIcon />
                 </IconButton>
               }

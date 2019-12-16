@@ -1,6 +1,6 @@
 export const MOVE_DOC_DETAIL ="MOVE_DOC_DETAIL";
 
-export const moveDetailPage=(target)=>({
+export const moveToDocumentDetail=(target)=>({
     type:MOVE_DOC_DETAIL,
     payload:target
 });
