@@ -101,7 +101,7 @@ const useStyles = makeStyles({
 });
 
 
-const Description=({description})=>{
+const Description = ({ description }) => {
     const classes = useStyles();
     return (
         <div>
@@ -153,18 +153,17 @@ const Footer=({onClick})=>{
 
 const PaymentFooter=({onClick})=>{
     const classes = useStyles();
+     const {userInfo}=useSelector(state=>state.userInfo);
     return (
-        <div className={classes.paymentFooter}>
-            <div className={classes.paymentFooterFunney}>
-                <div>
-                    <Typography variant="subtitle2">購入前</Typography>
-                    <Typography variant="h5">100FUNney</Typography>
-                </div>
-                <img src={arrow} alt="" className={classes.paymentFooterImage} />
-                <div>
-                    <Typography variant="subtitle2">購入後</Typography>
-                    <Typography variant="h5">50FUNney</Typography>
-                </div>
+        <div className={classes.paymentFooterFunney}>
+            <div>
+                <Typography variant="subtitle2">購入前</Typography>
+                <Typography variant="h5">{userInfo.balance}FUNney</Typography>
+            </div>
+            <img src={arrow} alt="" className={classes.paymentFooterImage} />
+            <div>
+                <Typography variant="subtitle2">購入後</Typography>
+                <Typography variant="h5">50FUNney</Typography>
             </div>
             <Button
                 variant="contained"

@@ -56,7 +56,7 @@ const Login = props => {
                     <i class="material-icons large-size">account_circle</i><br />
                     <Typography className="text_inner">
                         <span className="studentNumber">b101XXXX<br /></span>
-                        <span className="funneyRest">のこり<br /></span>
+                        <span className="funneyRest">㝮㝓り<br /></span>
                         <span className="funneyNumber">100</span>
                         <span className="funneyUnit">FUNney</span>
                     </Typography>
