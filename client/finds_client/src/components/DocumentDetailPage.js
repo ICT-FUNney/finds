@@ -1,9 +1,8 @@
-import React from "react";
+import React,{useEffect}from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import {Button} from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
-import {Avatar} from "@material-ui/core";
-
+import { Avatar } from "@material-ui/core";
 import { Switch, Route } from "react-router-dom";
 import {push} from "connected-react-router";
 import {useDispatch,useSelector} from "react-redux";
@@ -101,7 +100,7 @@ const useStyles = makeStyles({
 });
 
 
-const Description = ({ description }) => {
+const Description=({description})=>{
     const classes = useStyles();
     return (
         <div>
@@ -153,17 +152,16 @@ const Footer=({onClick})=>{
 
 const PaymentFooter=({onClick})=>{
     const classes = useStyles();
-     const {userInfo}=useSelector(state=>state.userInfo);
     return (
         <div className={classes.paymentFooterFunney}>
             <div>
                 <Typography variant="subtitle2">購入前</Typography>
-                <Typography variant="h5">{userInfo.balance}FUNney</Typography>
+                <Typography variant="h5">{User_Funney}FUNney</Typography>
             </div>
             <img src={arrow} alt="" className={classes.paymentFooterImage} />
             <div>
                 <Typography variant="subtitle2">購入後</Typography>
-                <Typography variant="h5">50FUNney</Typography>
+                <Typography variant="h5">{Doc_price}FUNney</Typography>
             </div>
             <Button
                 variant="contained"
@@ -177,7 +175,7 @@ const PaymentFooter=({onClick})=>{
     );
 }
 
-const DocumentDetailPage=({match})=>{
+const DocumentDetailPage = ({ match }) => {
     const classes = useStyles();
     const dispatch=useDispatch();
     const {target}=useSelector(store=>store.selectDoc);
@@ -225,7 +223,7 @@ const DocumentDetailPage=({match})=>{
                             <div style={{ textAlign: "center" }}>
                                 <img src={target.thumbnail} alt="hoge" className={classes.image} />
                             </div>
-                            <Detail userfuneny="100"
+                            <Detail userfuneny={userInfo.balance}
                                 name={target.name} creator={target.creator}
                                 creatorLevel={target.creatorLevel} creatorImg={target.creatorImg}
                                 likes={target.likes} reviews={target.reviews}
