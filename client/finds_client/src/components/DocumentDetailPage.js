@@ -11,6 +11,7 @@ import TopAppBar from './TopAppBar';
 import logo from "../logo.svg";
 import arrow from "../arrow_right_alt-24px.svg";
 import Detail from "./Detail";
+import {buyDocRequest} from "../actions/actionTypes";
 
 // TODO:コードが汚くなってきたので整理する
 
@@ -95,45 +96,6 @@ const useStyles = makeStyles({
     }
 });
 
-const ddata =
-{
-    "documentId": 1,
-    "name": "線形代数学第1回講義ノート",
-    "author": "未来太郎",
-    "authorLevel": 2,
-    "thumbnail": "https://i.pinimg.com/474x/af/68/64/af68643ebb19a24a060a4742dac53a6d.jpg",
-    "material": "https://www.cube-soft.jp/cubepdf/CubePDF_users_manual.pdf",
-    "price": 50,
-    "downlaod": 33,
-    "likes": 3,
-    "description": "線形代数学第1回講義ノートです",
-    "reviews": 3,
-    "content": [
-        {
-            "userId": "b1019001",
-            "userIcon": "",
-            "text": "わかりやすかったです"
-        },
-        {
-            "userId": "b1019003",
-            "userIcon": "",
-            "text": "参考になりました"
-        }
-    ]
-}
-
-const com = [
-    {
-        userId: "b1019001",
-        userIcon: "",
-        text: "わかりやすかったです"
-    },
-    {
-        userId: "b1019003",
-        userIcon: "",
-        text: "参考になりました"
-    }
-]
 
 const Description=({description})=>{
     const classes = useStyles();
@@ -206,6 +168,7 @@ const DocumentDetailPage=({match})=>{
     const classes = useStyles();
     const dispatch=useDispatch();
     const {target}=useSelector(store=>store.selectDoc);
+    const User = useSelector(s => s.userLogin);
     const moveToPayment=()=>{
         return (
             dispatch(push("/detail/payment"))
@@ -213,7 +176,12 @@ const DocumentDetailPage=({match})=>{
     }
     const moveToAfter=()=>{
         return (
-            dispatch(push("/detail/afterpayment"))
+            dispatch(buyDocRequest({
+                amount:target.price,
+                id:User.id,
+                dest_id: target.autherId,
+                token:User.token
+            }))
         );
     }
 
@@ -266,7 +234,7 @@ const DocumentDetailPage=({match})=>{
                     return (
                         <div className={classes.afterPayment}>
                             <Typography variant="h6" className={classes.afterPaymentText}>購入が完了しました。</Typography>
-                            <Button color="primary" variant="contained" className={classes.afterPaymentButton}>資料を見る</Button>
+                            <Button color="primary" variant="contained" className={classes.afterPaymentButton} onClick={() => dispatch(push("/home"))}>資料を見る</Button>
                         </div>
                     );
                 }}
