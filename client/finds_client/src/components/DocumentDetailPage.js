@@ -73,9 +73,9 @@ const useStyles = makeStyles({
         width:"25%"
     },
     paymentFooterButton:{
-        position:"relative",
+        position:"absolute",
         left:"50%",
-        top:"60px",
+        top:"110px",
         transform:"translateX(-50%)",
     },
     afterPayment:{
