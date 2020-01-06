@@ -57,6 +57,10 @@ const useStyles = makeStyles({
         backgroundColor:"#E4E4E4",
         minHeight:"100px"
     },
+    paymentFooter:{
+        display:"block",
+        marginBottom:"100px"
+    },
     paymentFooterFunney:{
         display:"flex",
         justifyContent:"center",
@@ -68,10 +72,10 @@ const useStyles = makeStyles({
         width:"25%"
     },
     paymentFooterButton:{
-        position:"absolute",
-        bottom:"10%",
+        position:"relative",
         left:"50%",
-        transform:"translateX(-50%)"
+        top:"60px",
+        transform:"translateX(-50%)",
     },
     afterPayment:{
         position:"absolute",
@@ -147,19 +151,29 @@ const Footer=({onClick})=>{
     );
 }
 
-const PaymentFooter=()=>{
+const PaymentFooter=({onClick})=>{
     const classes = useStyles();
     return (
-        <div className={classes.paymentFooterFunney}>
-            <div>
-                <Typography variant="subtitle2">購入前</Typography>
-                <Typography variant="h5">100FUNney</Typography>
+        <div className={classes.paymentFooter}>
+            <div className={classes.paymentFooterFunney}>
+                <div>
+                    <Typography variant="subtitle2">購入前</Typography>
+                    <Typography variant="h5">100FUNney</Typography>
+                </div>
+                <img src={arrow} alt="" className={classes.paymentFooterImage} />
+                <div>
+                    <Typography variant="subtitle2">購入後</Typography>
+                    <Typography variant="h5">50FUNney</Typography>
+                </div>
             </div>
-            <img src={arrow} alt="" className={classes.paymentFooterImage} />
-            <div>
-                <Typography variant="subtitle2">購入後</Typography>
-                <Typography variant="h5">50FUNney</Typography>
-            </div>
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={onClick}
+                className={classes.paymentFooterButton}
+            >
+                購入確定
+            </Button>
         </div>
     );
 }
@@ -218,15 +232,7 @@ const DocumentDetailPage=({match})=>{
                                 likes={target.likes} reviews={target.reviews}
                                 dl={target.dl}
                             />
-                            <PaymentFooter/>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={moveToAfter}
-                                className={classes.paymentFooterButton}
-                            >
-                                購入確定
-                            </Button>
+                            <PaymentFooter onClick={moveToAfter}/>
                         </>
                     );
                 }} />
