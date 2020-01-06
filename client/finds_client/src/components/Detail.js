@@ -69,12 +69,12 @@ const DetailButton=({click,src,alt,text,count})=>{
     const classes = useStyles();
     return (
         <div>
-            <Fab 
-                variant="extended" 
-                size="small" 
-                className={classes.detailButton} 
-                color="primary" 
-                aria-label="add" 
+            <Fab
+                variant="extended"
+                size="small"
+                className={classes.detailButton}
+                color="primary"
+                aria-label="add"
                 onClick={click}
             >
                 <img src={src} alt={alt}/>
