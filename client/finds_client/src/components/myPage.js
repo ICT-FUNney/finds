@@ -60,7 +60,7 @@ const Mypage = props => {
                 <ColorBox color="text.primary" borderRadius="10%" className="box">
                     <img src={userInfo.userIcon||"https://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png"} class="material-icons" alt="sdfreghtrjy"></img><br></br>
                     <Typography className="text_inner">
-                        <span className="studentNumber">{userInfo.userId}</span>
+      　　　　　　　　　　<span className="studentNumber">{userInfo.userId}</span>
                         <span className="funneyRest">のこり</span>
                         <span className="funneyNumber">{userInfo.balance}</span>
                         <span className="funneyUnit">FUNney</span>

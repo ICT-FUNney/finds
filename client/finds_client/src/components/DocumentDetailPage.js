@@ -1,9 +1,8 @@
-import React from "react";
+import React,{useEffect}from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import {Button} from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
-import {Avatar} from "@material-ui/core";
-
+import { Avatar } from "@material-ui/core";
 import { Switch, Route } from "react-router-dom";
 import {push} from "connected-react-router";
 import {useDispatch,useSelector} from "react-redux";
@@ -11,7 +10,9 @@ import TopAppBar from './TopAppBar';
 import logo from "../logo.svg";
 import arrow from "../arrow_right_alt-24px.svg";
 import Detail from "./Detail";
-import {buyDocRequest} from "../actions/actionTypes";
+import { buyDocRequest } from "../actions/actionTypes";
+import { getUserInfoRequest } from "../actions/actionTypes";
+
 
 // TODO:コードが汚くなってきたので整理する
 
@@ -72,9 +73,9 @@ const useStyles = makeStyles({
         width:"25%"
     },
     paymentFooterButton:{
-        position:"relative",
+        position:"absolute",
         left:"50%",
-        top:"60px",
+        top:"110px",
         transform:"translateX(-50%)",
     },
     afterPayment:{
@@ -134,11 +135,11 @@ const Comments=({comments})=>{
     );
 }
 
-const Footer=({onClick})=>{
+const Footer=({onClick,Doc_Price})=>{
     const classes = useStyles();
     return (
         <div className={classes.foot}>
-            <Typography variant="h4">100FUNney</Typography>
+            <Typography variant="h4">{Doc_Price}FUNney</Typography>
             <Button
                 variant="contained"
                 color="primary"
@@ -151,20 +152,18 @@ const Footer=({onClick})=>{
     );
 }
 
-const PaymentFooter=({onClick})=>{
+const PaymentFooter=({onClick,User_Funeny,Doc_Price})=>{
     const classes = useStyles();
     return (
-        <div className={classes.paymentFooter}>
-            <div className={classes.paymentFooterFunney}>
-                <div>
-                    <Typography variant="subtitle2">購入前</Typography>
-                    <Typography variant="h5">100FUNney</Typography>
-                </div>
-                <img src={arrow} alt="" className={classes.paymentFooterImage} />
-                <div>
-                    <Typography variant="subtitle2">購入後</Typography>
-                    <Typography variant="h5">50FUNney</Typography>
-                </div>
+        <div className={classes.paymentFooterFunney}>
+            <div>
+                <Typography variant="subtitle2">購入前</Typography>
+                <Typography variant="h5">{User_Funeny}FUNney</Typography>
+            </div>
+            <img src={arrow} alt="" className={classes.paymentFooterImage} />
+            <div>
+                <Typography variant="subtitle2">購入後</Typography>
+                <Typography variant="h5">{User_Funeny-Doc_Price}FUNney</Typography>
             </div>
             <Button
                 variant="contained"
@@ -178,11 +177,15 @@ const PaymentFooter=({onClick})=>{
     );
 }
 
-const DocumentDetailPage=({match})=>{
+const DocumentDetailPage = ({ match }) => {
     const classes = useStyles();
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
+    const {userInfo}=useSelector(state=>state.userInfo);
     const {target}=useSelector(store=>store.selectDoc);
     const User = useSelector(s => s.userLogin);
+    useEffect(()=>{
+     dispatch(getUserInfoRequest("b1018000"))
+   },[])
     const moveToPayment=()=>{
         return (
             dispatch(push("/detail/payment"))
@@ -216,7 +219,10 @@ const DocumentDetailPage=({match})=>{
                             />
                             <Description description={target.description}/>
                             <Comments comments={target.comments}/>
-                            <Footer  onClick={moveToPayment}/>
+                            <Footer
+                                onClick={moveToPayment}
+                                Doc_Price={target.price}
+                            />
                         </>
                     );
                 }}/>
@@ -226,13 +232,17 @@ const DocumentDetailPage=({match})=>{
                             <div style={{ textAlign: "center" }}>
                                 <img src={target.thumbnail} alt="hoge" className={classes.image} />
                             </div>
-                            <Detail userfuneny="100"
+                            <Detail userfuneny={User.balance}
                                 name={target.name} creator={target.creator}
                                 creatorLevel={target.creatorLevel} creatorImg={target.creatorImg}
                                 likes={target.likes} reviews={target.reviews}
                                 dl={target.dl}
                             />
-                            <PaymentFooter onClick={moveToAfter}/>
+                            <PaymentFooter
+                                onClick={moveToAfter}
+                                User_Funeny={userInfo.balance}
+                                Doc_Price={target.price}
+                            />
                         </>
                     );
                 }} />
