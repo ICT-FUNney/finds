@@ -7,7 +7,7 @@ function* getUserInfoSaga(action){
     const {res,err}=yield call(getUserInfo,id);
     if(err){
         yield put(UserInfoFailed(err));
-    }else{
+    } else {
         yield put(UserInfoSuccess(res));
     }
 }
