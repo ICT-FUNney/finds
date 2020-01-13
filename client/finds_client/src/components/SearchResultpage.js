@@ -56,7 +56,8 @@ function SearchResultPage(props) {
             description: item.description,
             comments: item.reviews,
             autherId: item.authorId,
-            thumbnail: item.thumbnail||""
+            thumbnail: item.thumbnail||"",
+            price: item.price
           })}>
             <img src={item.thumbnail} alt={item.name} onClick={moveToDocDetail}/>
             <GridListTileBar

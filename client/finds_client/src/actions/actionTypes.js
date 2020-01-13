@@ -21,6 +21,9 @@ export const USERDOC_FAILED = 'USERDOC_FAILED';
 export const USERINFO_REQUEST = "USERINFO_REQUEST";
 export const USERINFO_SUCCESS = 'USERINFO_SUCCESS';
 export const USERINFO_FAILED = 'USERINFO_FAILED';
+export const BUYDOC_REQUEST ="BUYDOC_REQUEST";
+export const BUYDOC_SUCCESS ="BUYDOC_SUCCESS";
+export const BUYDOC_FAILED ="BUYDOC_FAILED";
 
 export const getLoginRequest=(info)=>({
     type:LOGIN_REQUEST,
@@ -45,6 +48,11 @@ export const getUserDocRequest=(id)=>({
 export const getUserInfoRequest=(id)=>({
     type:USERINFO_REQUEST,
     payload:id
+});
+
+export const buyDocRequest=(data)=>({
+    type:BUYDOC_REQUEST,
+    payload:data
 });
 
 export const LoginSuccess=(res)=>({
@@ -94,6 +102,16 @@ export const UserInfoSuccess=(res)=>({
 
 export const UserInfoFailed=(err)=>({
     type:USERINFO_FAILED,
+    payload:err
+});
+
+export const buyDocSuccess=(res)=>({
+    type:BUYDOC_SUCCESS,
+    payload:res
+});
+
+export const buyDocFailed=(err)=>({
+    type:BUYDOC_FAILED,
     payload:err
 });
 //================
