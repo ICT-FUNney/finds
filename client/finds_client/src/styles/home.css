@@ -1,0 +1,15 @@
+/* .positionStandard {
+  position: relative;
+} */
+
+/* .positionStandard .positionAbsolute {
+  position: absolute;
+  bottom: 3%;
+  right: 3%;
+} */
+
+.positionAbsolute {
+  position: fixed;
+  right: 0px;
+  bottom: 0px;
+}
