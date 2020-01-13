@@ -1,12 +1,12 @@
 import * as request from "superagent";
 
 export const getUserInfo = (userId) => {
-    return request.get(`http://private-anon-14c3863ce4-finds1.apiary-mock.com/userinfo/${userId}`)
+    return request.get(`https://private-anon-09b303e34c-finds1.apiary-mock.com/search/${userId}`)
         .then(res => {
             console.log(res)
             return { res: res.body };
         }).catch(err => {
             console.log(err);
-            return {err};
+            return { err };
         })
 }
