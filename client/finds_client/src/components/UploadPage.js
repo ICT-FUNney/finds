@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import { IconButton } from '@material-ui/core';
 import Publish from '@material-ui/icons/Publish';
 import Input from '@material-ui/core/Input';
+import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { deepPurple } from '@material-ui/core/colors';
 import '../styles/uploadPage.css';
@@ -26,10 +27,10 @@ const useStyles = makeStyles(theme => ({
         fontSize: "35px",
     },
     upload_input: {
-        marginTop: "10px"
+        marginTop: "5px"
     },
     upload_button_bottom: {
-        marginTop: "10%"
+        marginTop: "5%"
     }
 }));
 
@@ -60,35 +61,37 @@ const UploadPage = props => {
                     <p className="upload_icon_bottom">ノートをアップロードする</p>
                 </div>
             </Box>
-            <p className="white_text">ノートとタイトルと説明</p>
-            <Box className="sentence_box">
-                <p className="grey_text">ノートタイトル（必須、40文字まで）</p>
-                <Input fullWidth placeholder="ノートタイトル" inputProps={{ 'aria-label': 'description' }} className={classes.upload_input} />
-                <p className="grey_text">説明（任意、1000文字まで）</p>
-                <Input fullWidth placeholder="分野、工夫した点、特徴、注意点など" inputProps={{ 'aria-label': 'description' }} className={classes.upload_input} />
-            </Box>
-            <p className="white_text">価格</p>
-            <Box className="sentence_box">
-                <Input
-                    type="number"
-                    fullWidth
-                    endAdornment={<InputAdornment position="end">FUNney</InputAdornment>}
-                    className="input_number"
-                />
-            </Box>
-            <div className="upload_button_inner">
-                <ColorButton
-                    variant="contained"
-                >
-                    投稿する
+            <div className="upload_input_inner">
+                <p className="white_text">ノートとタイトルと説明</p>
+                <Box className="sentence_box">
+                    <TextField label="ノートタイトル" helperText="（必須、40文字まで）" fullWidth inputProps={{ 'aria-label': 'description' }} className={classes.upload_input} />
+                    <TextField label="説明(分野、工夫した点、特徴、注意点など)" helperText="（任意、1000文字まで）" fullWidth inputProps={{ 'aria-label': 'description' }} className={classes.upload_input} />
+                </Box>
+                <p className="white_text">価格</p>
+                <Box className="sentence_box">
+                    <Input
+                        type="number"
+                        fullWidth
+                        endAdornment={<InputAdornment position="end">FUNney</InputAdornment>}
+                        className="input_number"
+                    />
+                </Box>
+            </div>
+            <div className="upload_button_space">
+                <div className="upload_button_inner">
+                    <ColorButton
+                        variant="contained"
+                    >
+                        投稿する
+                    </ColorButton>
+                    <ColorButton
+                        variant="contained"
+                        className={classes.upload_button_bottom}
+                        onClick={moveToHome}
+                    >
+                        キャンセル
                 </ColorButton>
-                <ColorButton
-                    variant="contained"
-                    className={classes.upload_button_bottom}
-                    onClick={moveToHome}
-                >
-                    キャンセル
-                </ColorButton>
+                </div>
             </div>
         </div >
     )
