@@ -81,6 +81,7 @@ const UploadPage = props => {
                 <div className="upload_button_inner">
                     <ColorButton
                         variant="contained"
+                        onClick={moveToHome}
                     >
                         投稿する
                     </ColorButton>
