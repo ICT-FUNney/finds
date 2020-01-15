@@ -5,6 +5,8 @@ import {
     makeStyles,
     withStyles
 } from '@material-ui/core/styles';
+import { push } from "connected-react-router";
+import { useDispatch, useSelector } from "react-redux";
 import Button from '@material-ui/core/Button';
 import { IconButton } from '@material-ui/core';
 import Publish from '@material-ui/icons/Publish';
@@ -43,6 +45,10 @@ const ColorButton = withStyles(theme => ({
 
 const UploadPage = props => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const moveToHome = () => {
+        return (dispatch(push("/home")));
+    }
     return (
         <div className="upload_reset">
             <div className="upload_margin"></div>
@@ -79,6 +85,7 @@ const UploadPage = props => {
                 <ColorButton
                     variant="contained"
                     className={classes.upload_button_bottom}
+                    onClick={moveToHome}
                 >
                     キャンセル
                 </ColorButton>
