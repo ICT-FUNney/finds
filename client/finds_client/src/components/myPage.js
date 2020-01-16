@@ -1,4 +1,4 @@
-import React ,{useEffect}from 'react';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router';
 import '../styles/myPage.css';
 import {
@@ -10,7 +10,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { deepPurple } from '@material-ui/core/colors';
 import { push } from "connected-react-router";
-import { useDispatch ,useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TopAppBar from './TopAppBar';
 import { getUserInfoRequest } from "../actions/actionTypes";
 const darkViolet = deepPurple['A700'];
@@ -45,9 +45,9 @@ const Mypage = props => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const { userInfo } = useSelector(state => state.userInfo);
-    useEffect(()=>{
-     dispatch(getUserInfoRequest("b1018000"))
-   },[])
+    useEffect(() => {
+        dispatch(getUserInfoRequest("b1018000"))
+    }, [])
     const moveToLogin = () => {
         return (dispatch(push("/login")));
     }
@@ -58,9 +58,9 @@ const Mypage = props => {
             </div>
             <div className="inner">
                 <ColorBox color="text.primary" borderRadius="10%" className="box">
-                    <img src={userInfo.userIcon||"https://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png"} class="material-icons" alt="sdfreghtrjy"></img><br></br>
+                    <img src={userInfo.userIcon || "https://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png"} class="material-icons" alt="sdfreghtrjy"></img><br></br>
                     <Typography className="text_inner">
-      　　　　　　　　　　<span className="studentNumber">{userInfo.userId}</span>
+                        <span className="studentNumber">{userInfo.userId}</span>
                         <span className="funneyRest">のこり</span>
                         <span className="funneyNumber">{userInfo.balance}</span>
                         <span className="funneyUnit">FUNney</span>

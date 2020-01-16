@@ -1,6 +1,6 @@
 .inner {
-  width: 40%;
-  margin: 5% auto;
+  width: 50%;
+  margin: 10% auto 0 auto;
   text-align: center;
 }
 
@@ -9,9 +9,9 @@
   padding-bottom: 10%;
 }
 
-.material-icons{
-width: 60px;
-height:60px;
+.material-icons {
+  width: 60px;
+  height: 60px;
 }
 
 .text_inner {
