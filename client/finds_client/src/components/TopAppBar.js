@@ -1,15 +1,17 @@
-import React from 'react';
+import React,{useState} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { IconButton } from '@material-ui/core';
-import { fade } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Description from '@material-ui/icons/Description';
-import InputBase from '@material-ui/core/InputBase';
+import Input from '@material-ui/core/Input';
 import SearchIcon from '@material-ui/icons/Search';
+import {push} from "connected-react-router";
+import {useDispatch} from "react-redux";
+import {getSearchRequest} from "../actions/actionTypes"
 
 const styles = theme => ({
     root: {
@@ -55,33 +57,48 @@ const styles = theme => ({
     },
 });
 
-function UpAppBar(props) {
-    const { classes, title, search } = props;
+
+
+function TopAppBar(props) {
+  const { classes, title, search } = props;
+  const dispatch = useDispatch();
+  const [searchStr,setSearchStr]=useState('');
+  const moveToMypage = () => {
+  return (dispatch(push("/myPage")));
+  }
+  const moveToHome = () => {
+    return (dispatch(push("/Home")));
+  }
+  const moveToResult = () => {
+    dispatch(getSearchRequest(searchStr));
+  }
+
+  const handleStr=(e)=>{
+    setSearchStr(e.target.value);
+  }
+
     return (
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
           <div className={classes.search}>
-            <div className={classes.searchIcon}>
-                <SearchIcon/>
+            <div className={classes.searchIcon} onClick={moveToResult}>
+                <SearchIcon />
             </div>
-            <InputBase
-              placeholder="新しい勉強資料を探す"
-              fullWidth="100%"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-                inputProps={{ 'aria-label': 'search' }}
+            <Input type='text'
+            placeholder='新しい勉強資料を探す'
+            value={searchStr}
+            onChange={handleStr}
+            onKeyPress={(e) => { if (e.which === 13) moveToResult() }}
             />
             </div>
             <Typography variant="title" color="inherit" className={classes.flex}>
               {title}
                     </Typography>
-            <IconButton className={classes.mypage}>
+            <IconButton className={classes.mypage}onClick={moveToHome}>
             <Description/>
             </IconButton>
-            <IconButton className={classes.mypage}>
+            <IconButton className={classes.mypage} onClick={moveToMypage}>
               <AccountCircle />
             </IconButton>
                 </Toolbar>
@@ -90,8 +107,8 @@ function UpAppBar(props) {
     );
 }
 
-UpAppBar.propTypes = {
+TopAppBar.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(UpAppBar);
+export default withStyles(styles)(TopAppBar);

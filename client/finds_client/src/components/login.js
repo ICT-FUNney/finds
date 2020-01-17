@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router';
 import '../styles/login.css';
 import {
@@ -8,6 +8,9 @@ import {
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { deepPurple } from '@material-ui/core/colors';
+import { push } from "connected-react-router";
+import { useDispatch } from "react-redux";
+import { getLoginRequest } from "../actions/actionTypes"
 
 const darkViolet = deepPurple['A700'];
 
@@ -35,11 +38,17 @@ const CssTextField = withStyles({
 
 const useStyles = makeStyles(theme => ({
     margin: {
-        marginTop: theme.spacing(2),
+        marginTop: theme.spacing(3),
+        width: '50vw',
     },
     margin5: {
         marginTop: theme.spacing(5),
+        width: '50vw',
     },
+    marginButton: {
+        marginTop: theme.spacing(5),
+        width: '30vw',
+    }
 }));
 
 const ColorButton = withStyles(theme => ({
@@ -54,8 +63,15 @@ const ColorButton = withStyles(theme => ({
 
 const Login = props => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const [id, setId] = useState("");
+    const [password, setPassword] = useState("");
+    const moveToMyDocumentList = () => {
+        const info = { id, password }
+        dispatch(getLoginRequest(info))
+    }
     return (
-        <div className="inner">
+        <div className="loginInner">
             <h1>finds</h1>
             <CssTextField
                 className={classes.margin5}
@@ -63,6 +79,7 @@ const Login = props => {
                 variant="outlined"
                 id="custom-css-outlined-input"
                 fullWidth
+                onChange={(e) => setId(e.target.value)}
                 InputLabelProps={{
                     style: {
                     }
@@ -78,6 +95,7 @@ const Login = props => {
                 variant="outlined"
                 id="custom-css-outlined-input"
                 fullWidth
+                onChange={(e) => setPassword(e.target.value)}
                 inputProps={{
                     style: {
                     },
@@ -86,7 +104,8 @@ const Login = props => {
             <ColorButton
                 variant="contained"
                 color="primary"
-                className={classes.margin5}
+                className={classes.marginButton}
+                onClick={moveToMyDocumentList}
             >
                 LOGIN
             </ColorButton>

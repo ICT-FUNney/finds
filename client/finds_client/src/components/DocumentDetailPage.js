@@ -1,16 +1,18 @@
-import React from "react";
+import React,{useEffect}from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import {Button} from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
-import {Avatar} from "@material-ui/core";
-
+import { Avatar } from "@material-ui/core";
 import { Switch, Route } from "react-router-dom";
 import {push} from "connected-react-router";
-import {useDispatch} from "react-redux";
-
+import {useDispatch,useSelector} from "react-redux";
+import TopAppBar from './TopAppBar';
 import logo from "../logo.svg";
 import arrow from "../arrow_right_alt-24px.svg";
 import Detail from "./Detail";
+import { buyDocRequest } from "../actions/actionTypes";
+import { getUserInfoRequest } from "../actions/actionTypes";
+
 
 // TODO:コードが汚くなってきたので整理する
 
@@ -56,6 +58,10 @@ const useStyles = makeStyles({
         backgroundColor:"#E4E4E4",
         minHeight:"100px"
     },
+    paymentFooter:{
+        display:"block",
+        marginBottom:"100px"
+    },
     paymentFooterFunney:{
         display:"flex",
         justifyContent:"center",
@@ -68,9 +74,9 @@ const useStyles = makeStyles({
     },
     paymentFooterButton:{
         position:"absolute",
-        bottom:"10%",
         left:"50%",
-        transform:"translateX(-50%)"
+        top:"110px",
+        transform:"translateX(-50%)",
     },
     afterPayment:{
         position:"absolute",
@@ -95,45 +101,6 @@ const useStyles = makeStyles({
     }
 });
 
-const ddata =
-{
-    "documentId": 1,
-    "name": "線形代数学第1回講義ノート",
-    "author": "未来太郎",
-    "authorLevel": 2,
-    "thumbnail": "https://i.pinimg.com/474x/af/68/64/af68643ebb19a24a060a4742dac53a6d.jpg",
-    "material": "https://www.cube-soft.jp/cubepdf/CubePDF_users_manual.pdf",
-    "price": 50,
-    "downlaod": 33,
-    "likes": 3,
-    "description": "線形代数学第1回講義ノートです",
-    "reviews": 3,
-    "content": [
-        {
-            "userId": "b1019001",
-            "userIcon": "",
-            "text": "わかりやすかったです"
-        },
-        {
-            "userId": "b1019003",
-            "userIcon": "",
-            "text": "参考になりました"
-        }
-    ]
-}
-
-const com = [
-    {
-        userId: "b1019001",
-        userIcon: "",
-        text: "わかりやすかったです"
-    },
-    {
-        userId: "b1019003",
-        userIcon: "",
-        text: "参考になりました"
-    }
-]
 
 const Description=({description})=>{
     const classes = useStyles();
@@ -168,11 +135,11 @@ const Comments=({comments})=>{
     );
 }
 
-const Footer=({onClick})=>{
+const Footer=({onClick,Doc_Price})=>{
     const classes = useStyles();
     return (
         <div className={classes.foot}>
-            <Typography variant="h4">100FUNney</Typography>
+            <Typography variant="h4">{Doc_Price}FUNney</Typography>
             <Button
                 variant="contained"
                 color="primary"
@@ -185,26 +152,40 @@ const Footer=({onClick})=>{
     );
 }
 
-const PaymentFooter=()=>{
+const PaymentFooter=({onClick,User_Funeny,Doc_Price})=>{
     const classes = useStyles();
     return (
         <div className={classes.paymentFooterFunney}>
             <div>
                 <Typography variant="subtitle2">購入前</Typography>
-                <Typography variant="h5">100FUNney</Typography>
+                <Typography variant="h5">{User_Funeny}FUNney</Typography>
             </div>
             <img src={arrow} alt="" className={classes.paymentFooterImage} />
             <div>
                 <Typography variant="subtitle2">購入後</Typography>
-                <Typography variant="h5">50FUNney</Typography>
+                <Typography variant="h5">{User_Funeny-Doc_Price}FUNney</Typography>
             </div>
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={onClick}
+                className={classes.paymentFooterButton}
+            >
+                購入確定
+            </Button>
         </div>
     );
 }
 
-const DocumentDetailPage=({match})=>{
+const DocumentDetailPage = ({ match }) => {
     const classes = useStyles();
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
+    const {userInfo}=useSelector(state=>state.userInfo);
+    const {target}=useSelector(store=>store.selectDoc);
+    const User = useSelector(s => s.userLogin);
+    useEffect(()=>{
+     dispatch(getUserInfoRequest("b1018000"))
+   },[])
     const moveToPayment=()=>{
         return (
             dispatch(push("/detail/payment"))
@@ -212,23 +193,36 @@ const DocumentDetailPage=({match})=>{
     }
     const moveToAfter=()=>{
         return (
-            dispatch(push("/detail/afterpayment"))
+            dispatch(buyDocRequest({
+                amount:target.price,
+                id:User.id,
+                dest_id: target.autherId,
+                token:User.token
+            }))
         );
     }
 
     return (
         <>
+            < TopAppBar />
             <Switch>
                 <Route exact path={`${match.url}`} render={()=>{
                     return (
                         <>
                             <div style={{ textAlign: "center" }}>
-                                <img src={logo} alt="hoge" className={classes.image} />
+                                <img src={target.thumbnail} alt="hoge" className={classes.image} />
                             </div>
-                            <Detail/>  
-                            <Description description="線形代数学第1回講義ノートです"/>
-                            <Comments comments={com}/>
-                            <Footer  onClick={moveToPayment}/>
+                            <Detail name={target.name} creator={target.creator}
+                                creatorLevel={target.creatorLevel} creatorImg={target.creatorImg}
+                                likes={target.likes} reviews={target.reviews}
+                                dl={target.dl}
+                            />
+                            <Description description={target.description}/>
+                            <Comments comments={target.comments}/>
+                            <Footer
+                                onClick={moveToPayment}
+                                Doc_Price={target.price}
+                            />
                         </>
                     );
                 }}/>
@@ -236,18 +230,19 @@ const DocumentDetailPage=({match})=>{
                     return (
                         <>
                             <div style={{ textAlign: "center" }}>
-                                <img src={logo} alt="hoge" className={classes.image} />
+                                <img src={target.thumbnail} alt="hoge" className={classes.image} />
                             </div>
-                            <Detail userfuneny="100"/>
-                            <PaymentFooter/>
-                            <Button
-                                variant="contained"
-                                color="primary"
+                            <Detail userfuneny={User.balance}
+                                name={target.name} creator={target.creator}
+                                creatorLevel={target.creatorLevel} creatorImg={target.creatorImg}
+                                likes={target.likes} reviews={target.reviews}
+                                dl={target.dl}
+                            />
+                            <PaymentFooter
                                 onClick={moveToAfter}
-                                className={classes.paymentFooterButton}
-                            >
-                                購入確定
-                            </Button>
+                                User_Funeny={userInfo.balance}
+                                Doc_Price={target.price}
+                            />
                         </>
                     );
                 }} />
@@ -255,7 +250,7 @@ const DocumentDetailPage=({match})=>{
                     return (
                         <div className={classes.afterPayment}>
                             <Typography variant="h6" className={classes.afterPaymentText}>購入が完了しました。</Typography>
-                            <Button color="primary" variant="contained" className={classes.afterPaymentButton}>資料を見る</Button>
+                            <Button color="primary" variant="contained" className={classes.afterPaymentButton} onClick={() => dispatch(push("/home"))}>資料を見る</Button>
                         </div>
                     );
                 }}

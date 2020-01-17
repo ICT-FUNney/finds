@@ -69,12 +69,12 @@ const DetailButton=({click,src,alt,text,count})=>{
     const classes = useStyles();
     return (
         <div>
-            <Fab 
-                variant="extended" 
-                size="small" 
-                className={classes.detailButton} 
-                color="primary" 
-                aria-label="add" 
+            <Fab
+                variant="extended"
+                size="small"
+                className={classes.detailButton}
+                color="primary"
+                aria-label="add"
                 onClick={click}
             >
                 <img src={src} alt={alt}/>
@@ -105,7 +105,6 @@ const Detail=({name,creator,creatorLevel,creatorImg,userfuneny,likes,reviews,dl}
                 <DetailButton click={()=>alert("clicked!!")} src={like} alt="like" text="いいね" count={likes}/>
                 <DetailButton click={() => alert("clicked!!")} src={review} alt="review" text="レビュー" count={reviews} />
             </div>
-            <Typography variant="subtitle2">{dl}</Typography>
             {userfuneny&&<Typography variant="h4" className={classes.funney}>{`${userfuneny}FUNney`}</Typography>}
         </div>
     )
